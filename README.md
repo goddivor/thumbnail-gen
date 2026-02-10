@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Thumbnail Generator
+
+A Next.js application that generates YouTube thumbnails using Google's Gemini AI image generation API.
+
+## Features
+
+- AI-powered thumbnail generation using Gemini 3 Pro Image Preview
+- Drag & drop file uploads with react-dropzone
+- Multiple image inputs (Extra Images, Inspiration, Person)
+- Generate 1-4 thumbnails at once
+- Dark/Light theme support
+- Download generated thumbnails
+- Clean Midjourney-inspired UI
+
+## Tech Stack
+
+- **Framework**: Next.js 16 with App Router
+- **UI**: Shadcn/UI + TailwindCSS v4
+- **AI**: AI SDK with Google Generative AI provider
+- **Theme**: next-themes
+- **Icons**: Lucide React
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- Google AI API key with billing enabled (required for image generation)
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/goddivor/thumbnail-gen.git
+cd thumbnail-gen
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Set up environment variables
+
+Create a `.env.local` file:
+
+```bash
+GOOGLE_GENERATIVE_AI_API_KEY=your_api_key_here
+```
+
+Get your API key from [Google AI Studio](https://aistudio.google.com/apikey).
+
+**Note**: Image generation requires a paid Google AI plan. The free tier does not support image generation.
+
+4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to use the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Enter a prompt describing your desired thumbnail
+2. (Optional) Upload reference images:
+   - **Extra Images**: Additional context
+   - **Inspiration**: Reference thumbnail style
+   - **Person**: Person to include
+3. Select the number of thumbnails to generate (1-4)
+4. Click "Generate" or press Ctrl+Enter
+5. Download your generated thumbnails
 
-## Learn More
+## API Configuration
 
-To learn more about Next.js, take a look at the following resources:
+The app uses the `gemini-3-pro-image-preview` model with the following configuration:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Response modalities: `["TEXT", "IMAGE"]`
+- Max duration: 120 seconds
+- Body size limit: 10MB
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── api/generate/       # AI generation API route
+│   ├── globals.css         # Dark theme styles
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Main UI
+├── components/
+│   ├── theme-provider.tsx  # Theme context
+│   ├── theme-toggle.tsx    # Theme switcher
+│   ├── upload-zone.tsx     # File upload component
+│   └── ui/                 # Shadcn components
+└── lib/utils.ts
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
