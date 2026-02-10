@@ -1,6 +1,9 @@
 # Thumbnail Generator
 
 A Next.js application that generates YouTube thumbnails using Google's Gemini AI image generation API.
+## Screenshot
+
+![Thumbnail Generator Screenshot](./public/screenshot.png)
 
 ## Features
 
